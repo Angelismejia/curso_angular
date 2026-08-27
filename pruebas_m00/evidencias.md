@@ -32,3 +32,16 @@ panel-actividades/
         ├── app.html    ← lo que se ve
         ├── app.css     ← cómo se ve
         └── app.ts      ← qué hace
+
+
+### Lección 1.12 - Moverse por el proyecto
+
+Aprendí a reconocer la raíz del workspace `panel-actividades`, porque ahí están `package.json` y `angular.json`.
+
+También aprendí que debo fijarme en la ruta completa de los archivos y no solo en el nombre. Por ejemplo, `src/index.html` y `src/app/app.html` son archivos diferentes.
+
+Los archivos principales de `src/app` son:
+
+- `app.html`: estructura
+- `app.css`: estilos
+- `app.ts`: comportamiento
