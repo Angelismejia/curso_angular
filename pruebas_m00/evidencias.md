@@ -45,3 +45,12 @@ Los archivos principales de `src/app` son:
 - `app.html`: estructura
 - `app.css`: estilos
 - `app.ts`: comportamiento
+
+### Lección 1.13 - Ejecutar y modificar la aplicación
+
+En esta lección inicié el proyecto con `npm start` y abrí la aplicación en la dirección que mostró la terminal.
+
+Después modifiqué `src/app/app.html`, guardé los cambios y comprobé que Angular recompiló automáticamente y actualizó la pantalla sin tener que reiniciar el servidor.
+
+![alt text](image.png)
+![alt text](image-1.png)
