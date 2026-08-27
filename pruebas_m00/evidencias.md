@@ -54,3 +54,24 @@ Después modifiqué `src/app/app.html`, guardé los cambios y comprobé que Angu
 
 ![alt text](image.png)
 ![alt text](image-1.png)
+
+### Lección 1.14 - Distinguir errores
+
+En esta lección provoqué un error de compilación a propósito cambiando `<main>` por `<section>` y dejando `</main>`.
+
+Angular mostró el error `Unexpected closing tag "main"` y me indicó el archivo y la línea donde estaba el problema.
+
+Luego hice la corrección mínima, volví a poner `<main>` y comprobé que la aplicación compiló otra vez correctamente.
+
+También aprendí qué hacer cuando aparece un error:
+
+1. Identificar en qué capa apareció.
+2. Leer el mensaje completo.
+3. Revisar de qué archivo, carpeta o URL habla.
+4. Pensar una sola causa posible.
+5. Hacer un solo cambio.
+6. Probar otra vez.
+7. Comprobar que no rompí otra cosa.
+
+![alt text](image-2.png)
+
