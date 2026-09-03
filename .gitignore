@@ -26,3 +26,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Copias de seguridad locales de las practicas
+*.fin-u03
