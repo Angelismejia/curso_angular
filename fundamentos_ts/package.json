@@ -1,0 +1,14 @@
+{
+  "name": "fundamentos_ts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "start": "tsc && node dist/main.js"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2"
+  }
+}
