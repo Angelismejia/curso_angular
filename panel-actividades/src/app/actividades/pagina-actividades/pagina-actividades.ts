@@ -1,6 +1,9 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { Actividad, FiltroEstado, FiltroPrioridad, Prioridad } from '../../modelos/actividad';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { debounceTime, of, switchMap } from 'rxjs';
+import { ActividadesApi } from '../../api/actividades-api';
 import { ActividadesService } from '../actividades';
 import { ResumenActividades } from '../resumen-actividades/resumen-actividades';
 import { FiltrosActividades } from '../filtros-actividades/filtros-actividades';
@@ -17,6 +20,7 @@ export class PaginaActividades {
   private readonly orden: Record<Prioridad, number> = { alta: 0, media: 1, baja: 2 };
 
   private readonly servicio = inject(ActividadesService);
+  private readonly api = inject(ActividadesApi);
 
   protected readonly actividades = this.servicio.actividades;
 
@@ -38,8 +42,8 @@ export class PaginaActividades {
   protected readonly completadas = this.servicio.completadas;
   protected readonly porcentaje = this.servicio.porcentaje;
 
-  protected readonly aviso = this.servicio.aviso;
-  protected readonly sinGuardar = this.servicio.sinGuardar;
+  protected readonly cargando = this.servicio.cargando;
+  protected readonly errorCarga = this.servicio.error;
 
   protected readonly visibles = computed(() => {
     const termino = this.termino().trim().toLocaleLowerCase('es');
@@ -114,15 +118,23 @@ export class PaginaActividades {
     });
   }
 
+  protected readonly resultados = signal<Actividad[] | null>(null);
+
   constructor() {
     effect(() => {
       console.info(`[Tablero] ${this.mostradas()} de ${this.total()} visibles`);
     });
+
+    toObservable(this.termino)
+      .pipe(
+        debounceTime(300),
+        switchMap((t) => (t.trim() === '' ? of(null) : this.api.buscar(t))),
+        takeUntilDestroyed(),
+      )
+      .subscribe((r) => this.resultados.set(r));
   }
 
-  protected restablecer(): void {
-    this.servicio.vaciar();
-    this.limpiarFiltros();
-    this.seleccionadaId.set(null);
+  protected recargar(): void {
+    this.servicio.cargar();
   }
 }
