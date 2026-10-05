@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { Actividad, Prioridad } from '../modelos/actividad';
 
 interface ActividadRemota {
-  id: number | string;
+  id: number;
   task_title: string;
   description: string | null;
   priority_level: number;
@@ -30,7 +30,7 @@ export function esActividadRemota(valor: unknown): valor is ActividadRemota {
   const v = valor as ActividadRemota;
 
   return (
-    (typeof v.id === 'number' || typeof v.id === 'string') &&
+    typeof v.id === 'number' &&
     typeof v.task_title === 'string' &&
     typeof v.priority_level === 'number' &&
     typeof v.is_done === 'boolean' &&
@@ -40,7 +40,7 @@ export function esActividadRemota(valor: unknown): valor is ActividadRemota {
 
 export function aActividad(remota: ActividadRemota): Actividad {
   return {
-    id: Number(remota.id),
+    id: remota.id,
     titulo: remota.task_title,
     descripcion: remota.description ?? '',
     prioridad: PRIORIDADES[remota.priority_level] ?? 'media',
